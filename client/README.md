@@ -18,4 +18,4 @@
 - Vite использовал, чтоб не тратить время на настройку проекта, т.к. больше настраивать, чем разрабатывать
 - Выбор технологий для разработки не был описан и поэтому писал на React
 - Для бесплатной Figma нет DevTools, поэтому стили могут быть не точными
-- Шрифта из Figma не было, поэтмоу взял похожий [Nunito Sans](https://fonts.google.com/specimen/Nunito+Sans?query=Nunito+Sans)
+- Шрифта из Figma не было, взял похожий [Nunito Sans](https://fonts.google.com/specimen/Nunito+Sans?query=Nunito+Sans)
