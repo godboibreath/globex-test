@@ -1,6 +1,8 @@
 import { useEffect, useState, type ChangeEvent } from 'react';
 
 import { Styled } from './Search.styles';
+import UsersStore from '../../stores/UsersStore';
+import { observer } from 'mobx-react';
 
 function SearchIcon() {
     return (
@@ -15,23 +17,27 @@ function SearchIcon() {
     );
 }
 
-function Search() {
+const SearchObserver = observer(function ({ usersStore }: { usersStore: typeof UsersStore }) {
     const [value, setValue] = useState<string>('');
+    const [touched, setTouched] = useState<boolean>(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
+        setTouched(true);
     };
 
     useEffect(() => {
+        if (!touched) {
+            return;
+        }
         const request = (search: string) => {
-            // todo rubtsov сделать запрос на сервер
-            console.log('Search request: ', search);
+            usersStore.request(search);
         };
         const timerId = setTimeout(() => request(value), 500);
         return () => {
             clearTimeout(timerId);
         };
-    }, [value]);
+    }, [value, usersStore, touched]);
 
     return (
         <Styled.Container>
@@ -43,6 +49,10 @@ function Search() {
             </Styled.Icon>
         </Styled.Container>
     );
+});
+
+function Search() {
+    return <SearchObserver usersStore={UsersStore} />;
 }
 
 export default Search;
